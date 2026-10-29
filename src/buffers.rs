@@ -15,7 +15,7 @@ impl Buffers {
         };
         let cold_buffer_desc = BufferDescriptor {
             label: Some("Cold Buffer"),
-            size: (number_attributes * 4) as u64,
+            size: number_grains * (number_attributes * 4) as u64,
             usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_DST,
             mapped_at_creation: false,
         };

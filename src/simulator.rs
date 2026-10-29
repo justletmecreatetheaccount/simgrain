@@ -3,7 +3,6 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use npy::NpyData;
 use wgpu::{Device, Queue};
 
 use crate::{buffers::Buffers, simulation_context::SimulationContext};
@@ -40,43 +39,27 @@ impl SimulatorContext {
 
         let number_attributes: u32 = 1; // Number of attributes per grain
 
-        let buffers = Buffers::new(&device, simulation_context.n_points(), number_attributes);
+        let buffers = Buffers::new(&device, simulation_context.n_grains(), number_attributes);
 
         // Load data in buffers
 
         // POSITIONS vec3<f64>
         let mut buf = vec![];
-        std::fs::File::open(&dir_path.join("positions.npy"))
+        std::fs::File::open(&dir_path.join("positions.bin"))
             .unwrap()
             .read_to_end(&mut buf)
             .unwrap();
 
-        let data: NpyData<f64> = NpyData::from_bytes(&buf).unwrap();
-        let data_vec = data.to_vec();
-        let bytes = bytemuck::cast_slice(&data_vec);
-
-        queue.write_buffer(buffers.hot_buffer(), 0, bytes);
-
-        for arr in data {
-            eprintln!("{:?}", arr);
-        }
+        queue.write_buffer(buffers.hot_buffer(), 0, &buf);
 
         // RADII
         let mut buf = vec![];
-        std::fs::File::open(&dir_path.join("radii.npy"))
+        std::fs::File::open(&dir_path.join("radii.bin"))
             .unwrap()
             .read_to_end(&mut buf)
             .unwrap();
 
-        let data: NpyData<f32> = NpyData::from_bytes(&buf).unwrap();
-        let data_vec = data.to_vec();
-        let bytes = bytemuck::cast_slice(&data_vec);
-
-        queue.write_buffer(buffers.cold_buffer(), 0, bytes);
-
-        for arr in data {
-            eprintln!("{:?}", arr);
-        }
+        queue.write_buffer(buffers.cold_buffer(), 0, &buf);
 
         (
             SimulatorContext {
