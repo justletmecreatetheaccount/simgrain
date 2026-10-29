@@ -20,6 +20,14 @@ impl Simulator {
             sim_context: context_pair.1,
         }
     }
+
+    pub fn context(&self) -> &SimulatorContext {
+        &self.context
+    }
+
+    pub fn sim_context(&self) -> &SimulationContext {
+        &self.sim_context
+    }
 }
 
 #[cfg(test)]

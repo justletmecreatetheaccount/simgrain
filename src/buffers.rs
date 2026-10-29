@@ -1,6 +1,6 @@
 use wgpu::{Buffer, BufferDescriptor, Device};
 
-pub(crate) struct Buffers {
+pub struct Buffers {
     hot_buffer: Buffer,
     cold_buffer: Buffer,
 }

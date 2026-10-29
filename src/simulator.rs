@@ -9,7 +9,7 @@ use wgpu::{Device, Queue};
 use crate::{buffers::Buffers, simulation_context::SimulationContext};
 
 // Device and Queue are a cheap Arc bump beneath the hood (Normally)
-pub(crate) struct SimulatorContext {
+pub struct SimulatorContext {
     device: Device,
     queue: Queue,
     buffers: Buffers,
@@ -77,5 +77,9 @@ impl SimulatorContext {
             },
             simulation_context,
         )
+    }
+
+    pub fn buffers(&self) -> &Buffers {
+        &self.buffers
     }
 }
