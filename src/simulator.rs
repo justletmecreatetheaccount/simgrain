@@ -24,7 +24,16 @@ impl SimulatorContext {
         let dir_path = PathBuf::from(config_dir_path);
         let simulation_context: SimulationContext = toml::from_str(
             std::fs::read_to_string(&dir_path.join("config.toml"))
-                .expect("Couldn't read simulation config file")
+                .expect(
+                    &format!(
+                        "Couldn't read simulation config file: {}",
+                        &dir_path
+                            .join("config.toml")
+                            .to_str()
+                            .expect("Couldn't transform path to string to give debug data"),
+                    )
+                    .into_boxed_str(),
+                )
                 .as_str(),
         )
         .expect("Could turn string to toml object");
