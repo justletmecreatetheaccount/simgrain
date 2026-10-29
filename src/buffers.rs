@@ -28,11 +28,11 @@ impl Buffers {
         }
     }
 
-    pub(crate) fn hot_buffer(&self) -> &Buffer {
+    pub fn hot_buffer(&self) -> &Buffer {
         &self.hot_buffer
     }
 
-    pub(crate) fn cold_buffer(&self) -> &Buffer {
+    pub fn cold_buffer(&self) -> &Buffer {
         &self.cold_buffer
     }
 }
