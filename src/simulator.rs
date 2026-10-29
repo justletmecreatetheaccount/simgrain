@@ -40,7 +40,7 @@ impl SimulatorContext {
 
         let number_attributes: u32 = 1; // Number of attributes per grain
 
-        let buffers = Buffers::new(&device, simulation_context.n_grains(), number_attributes);
+        let buffers = Buffers::new(&device, simulation_context.n_points(), number_attributes);
 
         // Load data in buffers
 

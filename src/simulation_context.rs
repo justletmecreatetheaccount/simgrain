@@ -2,14 +2,14 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Clone, Copy)]
 pub struct SimulationContext {
-    n_grains: u64,
+    n_points: u64,
     dtype: u32,
     dt: f32,
 }
 
 impl SimulationContext {
-    pub fn n_grains(&self) -> u64 {
-        self.n_grains
+    pub fn n_points(&self) -> u64 {
+        self.n_points
     }
 
     pub fn dtype(&self) -> u32 {
